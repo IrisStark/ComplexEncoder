@@ -1,3 +1,8 @@
+import pandas as pd
+import numpy as np
+import math
+import cmath
+
 class ComplexEncoder():
 
     #returns mapings of category to value
