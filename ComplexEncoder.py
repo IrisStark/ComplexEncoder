@@ -4,7 +4,7 @@ import math
 import cmath
 
 class ComplexEncoder():
-
+    
     #returns mapings of category to value
     def fit(self,column):
         #count frequencies of each category
@@ -58,14 +58,16 @@ class ComplexEncoder():
         #calculate exponential form
         self.exp = {}
         for key, value in module_R.items():
-            self.exp[key] = value*np.exp(cmath.sqrt(-1)*phase[key])
-
+            if phase[key]==0:
+                self.exp[key] = module_R[key]
+            else:
+                self.exp[key] = value*np.exp(cmath.sqrt(-1)*phase[key])  
         return self
-
+    
     #map category to corresponding value
     def transform(self, column):
          #map exponential form instead of categorical for column
-        column=column.map(self.exp)
+        column=column.map(self.exp) 
         return column
     def fit_transform(self, column):
         return self.fit(column).transform(column)
