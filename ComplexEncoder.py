@@ -7,6 +7,7 @@ class ComplexEncoder():
     
     #returns mapings of category to value
     def fit(self,column):
+        column = column.astype(str) #not string breaks value_counts indexing
         #count frequencies of each category
         val_counts = column.value_counts() #it creates sorted from largest to smallest pandas series
         #count number of categories
@@ -67,7 +68,10 @@ class ComplexEncoder():
     #map category to corresponding value
     def transform(self, column):
          #map exponential form instead of categorical for column
+        column = column.astype(str)
         column=column.map(self.exp) 
         return column
+    
+    
     def fit_transform(self, column):
         return self.fit(column).transform(column)
